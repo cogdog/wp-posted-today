@@ -8,7 +8,13 @@
 
 ----- 
 
-Provides a `[postedtoday]` shortcode that generates a list of posts from previous year on the same month and day as today. See it action at https://cogdogblog.com/this-day/
+Provides a `[postedtoday]` shortcode that generates a list of posts from previous year on the same month and day as today. Shortcode options let you also set the display for a specific month/day.
+
+
+## See it in Action
+
+* https://cogdogblog.com/this-day/ and https://cogdogblog.com/this-day/jan-15/
+* https://budtheteacher.com/blog/posted-today/
 
 
 ## Installation
