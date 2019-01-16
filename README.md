@@ -68,7 +68,8 @@ Smaller excerpt size, move below title by making it a block display
 
 ## Changes
 
-* v 0.1 Just got it working!
+* v0.1 Just got it working!
+* v0.2 Adjusted the sentence announcing the number of posts to be grammatically correct for a result of 1
 
 
 

@@ -3,7 +3,7 @@
 Plugin Name: Posted Today
 Plugin URI: https://github.com/cogdog/wp-posted-today
 Description: Shortcode [postedtoday] to generate a list of posts from previous year on the same month and day as today.
-Version: 0.1
+Version: 0.2
 License: GPLv2
 Author: Alan Levine
 Author URI: https://cog.dog
@@ -65,8 +65,11 @@ function cdb_postedtoday( $atts ) {
 	// gor results?
 	if ( $posts_from_today->have_posts() ) {
 	
+		// get the grammar right for a result of 1
+		$proper_verb_count_intro = ($posts_from_today->found_posts == 1) ? 'There is <strong>1</strong> post ' : 'There are <strong>' . $posts_from_today->found_posts . '</strong> posts ';
+	
 		// summary of results
-		$output = '<p>There are <strong>' . $posts_from_today->found_posts . '</strong> posts found on this site published on ' . date("F j", strtotime( $today['mon'] . '/' . $today['mday'] . '/' . $today['year']   )) . '</p> <ul class="todaypost">';
+		$output = '<p>' . $proper_verb_count_intro . ' found on this site published on ' . date("F j", strtotime( $today['mon'] . '/' . $today['mday'] . '/' . $today['year']   )) . '</p> <ul class="todaypost">';
 		
 		while( $posts_from_today->have_posts() ) {
 			$posts_from_today->the_post();
@@ -102,7 +105,7 @@ function cdb_postedtoday( $atts ) {
 			
 		} // while $posts_from_today
 		
-		$output .= '</li></ul>';
+		$output .= '</ul>';
 		
 		
 	} else {
