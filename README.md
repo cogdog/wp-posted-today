@@ -15,6 +15,8 @@ Provides a `[postedtoday]` shortcode that generates a list of posts from previou
 
 * https://cogdogblog.com/this-day/ and https://cogdogblog.com/this-day/jan-15/
 * https://budtheteacher.com/blog/posted-today/
+* https://coyotechalk.com/this-day/
+* http://collect.readwriterespond.com/otd/
 
 
 ## Installation
