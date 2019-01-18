@@ -72,6 +72,7 @@ Smaller excerpt size, move below title by making it a block display
 
 * v0.1 Just got it working!
 * v0.2 Adjusted the sentence announcing the number of posts to be grammatically correct for a result of 1
+* v0.3 Refined call to get current year in loop
 
 
 

@@ -3,7 +3,7 @@
 Plugin Name: Posted Today
 Plugin URI: https://github.com/cogdog/wp-posted-today
 Description: Shortcode [postedtoday] to generate a list of posts from previous year on the same month and day as today.
-Version: 0.2
+Version: 0.3
 License: GPLv2
 Author: Alan Levine
 Author URI: https://cog.dog
@@ -75,7 +75,7 @@ function cdb_postedtoday( $atts ) {
 			$posts_from_today->the_post();
 			
 			// get the year of post
-			$post_year = date("Y", strtotime( get_the_date() ));
+			$post_year = get_the_date('Y', $posts_from_today->post->ID );
 			
 			if ( $post_year != $year_tracker ) {
 				// we have a new year to work with
