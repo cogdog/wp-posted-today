@@ -19,6 +19,7 @@ Provides a `[postedtoday]` shortcode that generates a list of posts from previou
 * http://collect.readwriterespond.com/otd/
 * https://blog.ohheybrian.com/otd/
 * http://johnjohnston.info/blog/on-this-day/
+* https://mrkapowski.com/sitemap
 
 
 ## Installation
