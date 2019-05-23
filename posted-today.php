@@ -3,7 +3,7 @@
 Plugin Name: Posted Today
 Plugin URI: https://github.com/cogdog/wp-posted-today
 Description: Shortcode [postedtoday] to generate a list of posts from previous year on the same month and day as today.
-Version: 0.3
+Version: 0.4
 License: GPLv2
 Author: Alan Levine
 Author URI: https://cog.dog
@@ -66,7 +66,7 @@ function cdb_postedtoday( $atts ) {
 	// gor results?
 	if ( $posts_from_today->have_posts() ) {
 		
-		$the_date = date_i18n('F j', strtotime( $today['mon'] . '/' . $today['mday'] . '/' . $today['year']   ));
+		$the_date = date_i18n('F jS', strtotime( $today['mon'] . '/' . $today['mday'] . '/' . $today['year']   ));
 		// get the grammar right for a result of 1
 		$singular = sprintf(
 			_x('There is <strong>1</strong> post previously published on %s', 'Single post found', 'postedtoday'),
@@ -103,7 +103,7 @@ function cdb_postedtoday( $atts ) {
 				}
 				
 				// ok make the list for this year
-				$output .= $endlist . '<li><strong>' . date_i18n('F j', strtotime( $today['mon'] . '/' . $today['mday'] . '/' . $post_year   )) . '</strong><ul>';
+				$output .= $endlist . '<li><strong>' . date_i18n('Y', strtotime( $today['mon'] . '/' . $today['mday'] . '/' . $post_year   )) . '</strong><ul>';
 				
 				// now track this year as current
 				$year_tracker = $post_year;
@@ -125,7 +125,7 @@ function cdb_postedtoday( $atts ) {
 	} else {
 		$output = '<p>' . sprintf(
 			_x('No posts were previously published on %s', 'No posts for this date', 'postedtoday'),
-			date_i18n('F j', strtotime( $today['mon'] . '/' . $today['mday'] . '/' . $today['year']   ) )
+			date_i18n('F jS', strtotime( $today['mon'] . '/' . $today['mday'] . '/' . $today['year']   ) )
 		) . '</p>';	
 	}
 	
@@ -135,4 +135,3 @@ function cdb_postedtoday( $atts ) {
 	return $output;
 	
 }
-?>
