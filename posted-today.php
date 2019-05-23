@@ -115,7 +115,7 @@ function cdb_postedtoday( $atts ) {
 			// display excerpt if we want it
 			if ( $excerpt ) $output .= ' <span class="today_excerpt">' . get_the_excerpt() .   '</span>';
 			
-			$output .= '</li></ul>';
+			$output .= '</li>';
 			
 		} // while $posts_from_today
 		
