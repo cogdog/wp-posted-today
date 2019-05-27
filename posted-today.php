@@ -3,10 +3,11 @@
 Plugin Name: Posted Today
 Plugin URI: https://github.com/cogdog/wp-posted-today
 Description: Shortcode [postedtoday] to generate a list of posts from previous year on the same month and day as today.
-Version: 0.3
+Version: 0.4
 License: GPLv2
 Author: Alan Levine
 Author URI: https://cog.dog
+Text Domain: postedtoday
 */
 
 defined( 'ABSPATH' ) or die( 'Plugin file cannot be accessed directly.' );
@@ -64,12 +65,25 @@ function cdb_postedtoday( $atts ) {
 
 	// gor results?
 	if ( $posts_from_today->have_posts() ) {
-	
+		
+		$the_date = date_i18n('F jS', strtotime( $today['mon'] . '/' . $today['mday'] . '/' . $today['year']   ));
 		// get the grammar right for a result of 1
-		$proper_verb_count_intro = ($posts_from_today->found_posts == 1) ? 'There is <strong>1</strong> post ' : 'There are <strong>' . $posts_from_today->found_posts . '</strong> posts ';
+		$singular = sprintf(
+			_x('There is <strong>1</strong> post previously published on %s', 'Single post found', 'postedtoday'),
+			$the_date
+		);
+		$multiple = sprintf(
+			_x('There are <strong>%c</strong> posts previously published on %s', 'Multiple posts found', 'postedtoday'),
+			$posts_from_today->found_posts,
+			$the_date
+		);
+		$intro = ($posts_from_today->found_posts == 1) ? $singular : $multiple;
 	
 		// summary of results
-		$output = '<p>' . $proper_verb_count_intro . ' found on this site published on ' . date("F j", strtotime( $today['mon'] . '/' . $today['mday'] . '/' . $today['year']   )) . '</p> <ul class="todaypost">';
+		$output = sprintf(
+			'<p>%s</p><ul class="todaypost">',
+			$intro
+		);
 		
 		while( $posts_from_today->have_posts() ) {
 			$posts_from_today->the_post();
@@ -85,11 +99,11 @@ function cdb_postedtoday( $atts ) {
 					$endlist = '';
 					$first_year = false;
 				} else {
-					$endlist = '</li></ul>';
+					$endlist = '</ul></li>';
 				}
 				
 				// ok make the list for this year
-				$output .= $endlist . '<li><strong>' . date("F j, Y", strtotime( $today['mon'] . '/' . $today['mday'] . '/' . $post_year   )) . '</strong><ul>';
+				$output .= $endlist . '<li><strong>' . date_i18n('Y', strtotime( $today['mon'] . '/' . $today['mday'] . '/' . $post_year   )) . '</strong><ul>';
 				
 				// now track this year as current
 				$year_tracker = $post_year;
@@ -105,13 +119,14 @@ function cdb_postedtoday( $atts ) {
 			
 		} // while $posts_from_today
 		
-		$output .= '</ul>';
+		$output .= '</ul></li></ul>';
 		
 		
 	} else {
-	
-		$output = 'No posts were found published on ' .  date("F j", strtotime( $today['mon'] . '/' . $today['mday'] . '/' . $today['year']   ));
-	
+		$output = '<p>' . sprintf(
+			_x('No posts were previously published on %s', 'No posts for this date', 'postedtoday'),
+			date_i18n('F jS', strtotime( $today['mon'] . '/' . $today['mday'] . '/' . $today['year']   ) )
+		) . '</p>';	
 	}
 	
 	// restore post query
@@ -120,4 +135,3 @@ function cdb_postedtoday( $atts ) {
 	return $output;
 	
 }
-?>
