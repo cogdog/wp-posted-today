@@ -1,5 +1,5 @@
 # Posted Today
-** by [cog.dog](https://cog.dog)
+** by [cog.dog](https://cog.dog) **
 
 -----
 *If this kind of stuff has any value to you, please consider supporting me so I can do more!*
@@ -8,7 +8,7 @@
 
 ----- 
 
-Provides a `[postedtoday]` shortcode that generates a list of posts from previous year on the same month and day as today. Shortcode options let you also set the display for a specific month/day.
+Provides a `[postedtoday]` shortcode that generates a list of posts from previous year on the same month and day as today. Shortcode options let you also to show results for a specific month/day.
 
 
 ## See it in Action
@@ -77,6 +77,7 @@ Smaller excerpt size, move below title by making it a block display
 * v0.2 Adjusted the sentence announcing the number of posts to be grammatically correct for a result of 1
 * v0.3 Refined call to get current year in loop
 * v0.4 Date fixes, html cleanup, output set for langauage translation
+* v0.5 Debugged for not showing the count
 
 
 
