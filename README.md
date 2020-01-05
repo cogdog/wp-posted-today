@@ -20,6 +20,7 @@ Provides a `[postedtoday]` shortcode that generates a list of posts from previou
 * https://blog.ohheybrian.com/otd/
 * http://johnjohnston.info/blog/on-this-day/
 * https://mrkapowski.com/sitemap
+* https://www.michaelhanscom.com/eclecticism/2020/01/03/on-this-day-jan-3/
 
 
 ## Installation
@@ -33,6 +34,8 @@ Use the `[postedtoday]` shortcode  in any page to create a list by year of posts
 For an arbitrary  day, include a `month=` and `day=` parameter, e.g. `[postedtoday month="4" day="1"]`
 
 Hide the post excerpts via `[postedtoday excerpt="0"]`
+
+Use the `more='...'` option to add text to append a "more" link at the end of the excerpt (e.g. for microblog type posts that lack titles). `[postedtoday more="(read more...)"]`
 
 ## CSS 
 
@@ -77,7 +80,7 @@ Smaller excerpt size, move below title by making it a block display
 * v0.2 Adjusted the sentence announcing the number of posts to be grammatically correct for a result of 1
 * v0.3 Refined call to get current year in loop
 * v0.4 Date fixes, html cleanup, output set for langauage translation
-* v0.5 Debugged for not showing the count
+* v0.5 Debugged for not showing the count, added option for a "more" tag
 
 
 

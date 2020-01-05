@@ -3,7 +3,7 @@
 Plugin Name: Posted Today
 Plugin URI: https://github.com/cogdog/wp-posted-today
 Description: Shortcode [postedtoday] to generate a list of posts from previous year on the same month and day as today.
-Version: 0.5
+Version: 0.51
 License: GPLv2
 Author: Alan Levine
 Author URI: https://cog.dog
@@ -21,7 +21,7 @@ function cdb_postedtoday_shortcode() {
 
 function cdb_postedtoday( $atts ) {
 
-	extract(shortcode_atts( array( "month" => '', "day" => '', 'excerpt' => 1 ), $atts ));
+	extract(shortcode_atts( array( "month" => '', "day" => '', 'excerpt' => 1, 'more' => '' ), $atts ));
 
 	// yep, today is today, load with current month, day, uear
 	$today = array(
@@ -63,16 +63,34 @@ function cdb_postedtoday( $atts ) {
 	// a flag for the first entry
 	$first_year = true;
 
-	// gor results?
+	// got results?
+	
 	if ( $posts_from_today->have_posts() ) {
 		
 		$the_date = date_i18n('F jS', strtotime( $today['mon'] . '/' . $today['mday'] . '/' . $today['year']   ));
-		
 		// get the grammar right for a result of 1
-		$intro = ( $posts_from_today->found_posts == 1 ) ? 'There is <strong>1</strong> post' : 'There are <strong>' . $posts_from_today->found_posts . '</strong> posts';
 		
-		$output = '<p>' . $intro . ' previously published on ' . $the_date . '</p><ul class="todaypost">';
-	
+		
+		if ( $posts_from_today->found_posts == 1 ) {
+			$intro = sprintf(
+				_x('There is <strong>1</strong> post previously published on %s', 'Single post found', 'postedtoday'),
+				$the_date
+			);
+		} else {
+		
+			$intro = sprintf(
+			_x('There are <strong>%s</strong> posts previously published on %s', 'Multiple posts found', 'postedtoday'),
+			$posts_from_today->found_posts,
+			$the_date
+			);
+			
+		}
+			
+		// summary of results
+		$output = sprintf(
+			'<p>%s</p><ul class="todaypost">',
+			$intro
+		);
 		
 		while( $posts_from_today->have_posts() ) {
 			$posts_from_today->the_post();
@@ -100,23 +118,30 @@ function cdb_postedtoday( $atts ) {
 			}
 			
 			// output post and link
+						
 			$output .= '<li><a href="' . get_permalink() . '">' . get_the_title() . '</a>';
+			
 			// display excerpt if we want it
-			if ( $excerpt ) $output .= ' <span class="today_excerpt">' . get_the_excerpt() .   '</span>';
+			if ( $excerpt ) $output .= ' <span class="today_excerpt">' . get_the_excerpt();
 			
-			$output .= '</li>';
 			
+			// for microblog output where there might not be excerpts
+			// h/t https://www.michaelhanscom.com/eclecticism/2020/01/02/rss-feed-weirdness-and-php-debugging/
+
+			$output .= ' <a href="' . get_permalink() . '">' .  $more . '</a></span></li>';
+ 
+						
 		} // while $posts_from_today
 		
 		$output .= '</ul></li></ul>';
-		
 		
 	} else {
 		$output = '<p>' . sprintf(
 			_x('No posts were previously published on %s', 'No posts for this date', 'postedtoday'),
 			date_i18n('F jS', strtotime( $today['mon'] . '/' . $today['mday'] . '/' . $today['year']   ) )
 		) . '</p>';	
-	}
+	}	
+
 	
 	// restore post query
 	wp_reset_postdata();
